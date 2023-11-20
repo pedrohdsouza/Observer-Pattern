@@ -1,4 +1,4 @@
-package 1;
+package br.inatel.cdg;
 
 import static org.junit.Assert.assertTrue;
 
