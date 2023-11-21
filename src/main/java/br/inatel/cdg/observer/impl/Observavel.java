@@ -74,9 +74,10 @@ public class Observavel implements iObservavel {
 		String[] words = this.sentence.split("\\s");
 		int countWordsStartingWithCapitalLetters = 0;
 
-		String regEx = "[A-Z]\\w*";
-		for (String word: words) {
-			if (word.matches(regEx)) {
+		String regEx = "^[A-Z].*";
+ 		for (String word: words){
+		 	String wordTrim = word.trim();
+			if (wordTrim.matches(regEx)) {
 				System.out.println(word);
 				countWordsStartingWithCapitalLetters++;
 			}
