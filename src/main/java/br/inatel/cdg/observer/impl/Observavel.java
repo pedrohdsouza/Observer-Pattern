@@ -18,7 +18,8 @@ public class Observavel implements iObservavel {
 	}
 
     private String[] divideSentenceIntoWords(String sentence) {
-		return sentence.split("\\s+");
+		String sentenceWithoutPunctuation = sentence.replaceAll("[,.]", " ");
+		return sentenceWithoutPunctuation.split("\\s+");
     }
 
     @Override
@@ -44,6 +45,8 @@ public class Observavel implements iObservavel {
 		notificaObservadores();
 	}
 
+
+
     public void receiveSentence(String sentence) {
         this.sentence = sentence;
 		this.countWords();
@@ -52,13 +55,14 @@ public class Observavel implements iObservavel {
 		novasMedidas();
     }
 
-	private void countWords() {
+	public void countWords() {
 		this.countWords = divideSentenceIntoWords(this.sentence).length;
 		return;
 	}
 
-	private void countWordsWithChunksOfCharacterPairs() {
-		String[] words = this.sentence.split("\\s");
+	public void countWordsWithChunksOfCharacterPairs() {
+		String sentenceWithoutPunctuation = this.sentence.replaceAll("[,.]", " ");
+		String[] words = sentenceWithoutPunctuation.split("\\s");
 		int countEven = 0;
 
 		for (String word: words) {
@@ -70,15 +74,15 @@ public class Observavel implements iObservavel {
 		return;
 	}
 
-	private void countWordsStartingWithCapitalLetters() {
-		String[] words = this.sentence.split("\\s");
+	public void countWordsStartingWithCapitalLetters() {
+		String sentenceWithoutPunctuation = this.sentence.replaceAll("[,.]", " ");
+		String[] words = sentenceWithoutPunctuation.split("\\s");
 		int countWordsStartingWithCapitalLetters = 0;
 
 		String regEx = "^[A-Z].*";
  		for (String word: words){
 		 	String wordTrim = word.trim();
 			if (wordTrim.matches(regEx)) {
-				System.out.println(word);
 				countWordsStartingWithCapitalLetters++;
 			}
 		}
@@ -100,5 +104,13 @@ public class Observavel implements iObservavel {
 
 	public int getCountWordsStartingWithCapitalLetters() {
 		return this.countWordsStartingWithCapitalLetters;
+	}
+
+	public void setSentence(String sentence) {
+		this.sentence = sentence;
+	}
+
+	public List<Observador> getClients() {
+		return clients;
 	}
 }
